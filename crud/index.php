@@ -1,4 +1,14 @@
-<?php require_once "inc/functions.php" ?>
+<?php require_once "inc/functions.php"; 
+$info = '';
+$task = $_GET['task']??'report';
+if ('seed' ==$task) {
+    seed();
+    $info= "seeding is complete";
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +34,14 @@
 
 
                 <?php include_once ("inc/templates/nav.php"); ?>
+                <hr>
+                <?php if ($info!='') {
+                        echo "<p>{$info}</p>";
+                } ?>
             </div>
         </div>
+
+
 
         <div class="row">
             <div class="column column-60 column-offset-20">
@@ -34,13 +50,13 @@
                 </blockquote>
             </div>
         </div>
-
+        <?php if ('report' == $task):?>
         <div class="row">
             <div class="column column-60 column-offset-20">
-
+                <?php generateReport(); ?>
             </div>
         </div>
-
+        <?php endif; ?>
         <div class="row">
             <div class="column column-60 column-offset-20">
                 <form action="/crud/index.php?task=add" method="POST">
